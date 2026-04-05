@@ -1,6 +1,6 @@
 [build]
   command = "corepack enable && pnpm install --frozen-lockfile && pnpm run dev:prepare && pnpm nuxt build playground"
-  publish = "playground/.output/public"
+  publish = "playground/dist"
 
 [build.environment]
   NODE_VERSION = "20"
