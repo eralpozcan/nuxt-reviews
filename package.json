@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@nuxt/kit": "^3.16.0",
+    "defu": "^6.1.4",
     "ofetch": "^1.4.1"
   },
   "devDependencies": {
