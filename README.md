@@ -1,21 +1,30 @@
 # nuxt-reviews
 
+[![npm version][npm-version-src]][npm-version-href]
+[![npm downloads][npm-downloads-src]][npm-downloads-href]
+[![License][license-src]][license-href]
+[![Nuxt][nuxt-src]][nuxt-href]
+
 A Nuxt module to fetch and aggregate reviews from multiple tourism & review platforms with a single composable.
+
+- [✨  Release Notes](/CHANGELOG.md)
 
 ## Features
 
-- **Multi-provider support** — Google Places, Trustpilot, SerpAPI, Outscraper
-- **Normalized data** — All reviews mapped to a single Schema.org-based interface
-- **Aggregate ratings** — Automatic average, total, and star distribution calculation
-- **Server-side caching** — Built-in Nitro cached handlers to respect rate limits
-- **Auto-imported composable** — `useReviews()` works out of the box
-- **Content moderation** — Built-in toxicity filtering via Google Perspective API or OpenAI Moderation
-- **Type-safe** — Full TypeScript support with provider-specific configs
+- 🔌  **Multi-provider** — Google Places, Trustpilot, SerpAPI, Outscraper
+- 🔄  **Normalized data** — All reviews mapped to a single Schema.org-based interface
+- 📊  **Aggregate ratings** — Automatic average, total, and star distribution
+- 🛡️  **Content moderation** — Toxicity filtering via Google Perspective API or OpenAI
+- ⚡  **Server-side caching** — Built-in Nitro cached handlers
+- 🧩  **Auto-imported** — `useReviews()` composable works out of the box
+- 🎯  **Type-safe** — Full TypeScript support with provider-specific configs
 
-## Setup
+## Quick Setup
+
+Install the module to your Nuxt application with one command:
 
 ```bash
-pnpm add nuxt-reviews
+npx nuxi module add nuxt-reviews
 ```
 
 Add to `nuxt.config.ts`:
@@ -481,14 +490,51 @@ NUXT_REVIEWS_PROVIDERS_GOOGLE_API_KEY=...
 NUXT_REVIEWS_PROVIDERS_TRUSTPILOT_API_KEY=...
 ```
 
-## Development
+## Contribution
 
-```bash
-pnpm install
-pnpm dev:prepare
-pnpm dev           # starts playground
-```
+<details>
+  <summary>Local development</summary>
+
+  ```bash
+  # Install dependencies
+  pnpm install
+
+  # Generate type stubs
+  pnpm run dev:prepare
+
+  # Develop with the playground
+  pnpm run dev
+
+  # Build the playground
+  pnpm run dev:build
+
+  # Run ESLint
+  pnpm run lint
+
+  # Run Vitest
+  pnpm run test
+  pnpm run test:watch
+
+  # Release new version
+  pnpm run release
+  ```
+
+</details>
 
 ## License
 
 [MIT](./LICENSE) - [Eralp Ozcan](https://github.com/eralpozcan)
+
+
+<!-- Badges -->
+[npm-version-src]: https://img.shields.io/npm/v/nuxt-reviews/latest.svg?style=flat&colorA=020420&colorB=00DC82
+[npm-version-href]: https://npmjs.com/package/nuxt-reviews
+
+[npm-downloads-src]: https://img.shields.io/npm/dm/nuxt-reviews.svg?style=flat&colorA=020420&colorB=00DC82
+[npm-downloads-href]: https://npm.chart.dev/nuxt-reviews
+
+[license-src]: https://img.shields.io/npm/l/nuxt-reviews.svg?style=flat&colorA=020420&colorB=00DC82
+[license-href]: https://npmjs.com/package/nuxt-reviews
+
+[nuxt-src]: https://img.shields.io/badge/Nuxt-020420?logo=nuxt
+[nuxt-href]: https://nuxt.com
