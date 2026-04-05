@@ -1,0 +1,62 @@
+{
+  "name": "nuxt-reviews",
+  "version": "0.1.0",
+  "description": "A Nuxt module to fetch and aggregate reviews from multiple tourism platforms (Google, Trustpilot, SerpAPI, Outscraper)",
+  "license": "MIT",
+  "author": {
+    "name": "Eralp Ozcan",
+    "url": "https://github.com/eralpozcan"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eralpozcan/nuxt-reviews.git"
+  },
+  "homepage": "https://github.com/eralpozcan/nuxt-reviews#readme",
+  "bugs": {
+    "url": "https://github.com/eralpozcan/nuxt-reviews/issues"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.mts",
+      "import": "./dist/module.mjs"
+    }
+  },
+  "main": "./dist/module.mjs",
+  "types": "./dist/types.d.mts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepack": "nuxt-module-build build",
+    "dev": "nuxi dev playground",
+    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
+    "build": "nuxt-module-build build",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest watch"
+  },
+  "dependencies": {
+    "@nuxt/kit": "^3.16.0",
+    "ofetch": "^1.4.1"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "^2.0.0",
+    "@nuxt/eslint-config": "^1.0.0",
+    "@nuxt/module-builder": "^0.8.0",
+    "@nuxt/test-utils": "^3.16.0",
+    "eslint": "^9.0.0",
+    "nuxt": "^3.16.0",
+    "vitest": "^3.0.0"
+  },
+  "keywords": [
+    "nuxt",
+    "nuxt-module",
+    "reviews",
+    "google-reviews",
+    "trustpilot",
+    "tourism",
+    "hotel-reviews",
+    "review-aggregator"
+  ]
+}
