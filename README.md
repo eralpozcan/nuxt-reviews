@@ -8,6 +8,7 @@
 A Nuxt module to fetch and aggregate reviews from multiple tourism & review platforms with a single composable.
 
 - [✨  Release Notes](/CHANGELOG.md)
+- [🟢  Online Playground](https://nuxt-reviews-playground.netlify.app)
 
 ## Features
 
