@@ -1,7 +1,6 @@
 [build]
   command = "npm run dev:prepare && nuxt build playground"
-  publish = "playground/.output/public"
-  functions = "playground/.output/server"
+  publish = ".output/public"
 
 [build.environment]
   NODE_VERSION = "20"
