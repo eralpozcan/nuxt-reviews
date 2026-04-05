@@ -1,6 +1,7 @@
 [build]
   command = "corepack enable && pnpm install --frozen-lockfile && pnpm run dev:prepare && pnpm nuxt build playground"
   publish = "playground/dist"
+  functions = "playground/.netlify/functions-internal"
 
 [build.environment]
   NODE_VERSION = "20"
