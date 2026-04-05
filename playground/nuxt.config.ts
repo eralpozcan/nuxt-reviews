@@ -10,10 +10,6 @@ export default defineNuxtConfig({
         apiKey: process.env.GOOGLE_API_KEY || '',
         placeId: process.env.GOOGLE_PLACE_ID || '',
       },
-      trustpilot: {
-        apiKey: process.env.TRUSTPILOT_API_KEY || '',
-        businessUnitId: process.env.TRUSTPILOT_BUSINESS_UNIT_ID || '',
-      },
     },
   },
 
