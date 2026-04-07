@@ -4,7 +4,10 @@ export default defineContentConfig({
   collections: {
     landing: defineCollection({
       type: 'page',
-      source: 'index.md'
+      source: {
+        include: 'index.md',
+        prefix: '/'
+      }
     }),
     docs: defineCollection({
       type: 'page',
