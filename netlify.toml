@@ -1,5 +1,5 @@
 [build]
-  command = "corepack enable && pnpm install --frozen-lockfile && pnpm rebuild better-sqlite3 && pnpm run dev:prepare && pnpm nuxt build playground"
+  command = "corepack enable && pnpm install --frozen-lockfile && pnpm run dev:prepare && pnpm nuxt build playground"
   publish = "playground/dist"
   functions = "playground/.netlify/functions-internal"
 
