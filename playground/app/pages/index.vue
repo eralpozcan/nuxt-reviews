@@ -11,6 +11,11 @@ useSeoMeta({
 <template>
   <div>
     <div class="flex flex-col items-center justify-center text-center py-24 px-4">
+      <img
+        src="/logo.png"
+        alt="nuxt-reviews"
+        class="w-64 mb-6"
+      >
       <h1 class="text-5xl font-bold mb-4">
         <span class="text-primary">nuxt</span>-reviews
       </h1>

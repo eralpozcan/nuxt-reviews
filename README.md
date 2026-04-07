@@ -1,4 +1,8 @@
-# nuxt-reviews
+<p align="center">
+  <img src="https://nuxt-reviews.netlify.app/logo.png" alt="nuxt-reviews" width="400" />
+</p>
+
+<h1 align="center">nuxt-reviews</h1>
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
