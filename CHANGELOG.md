@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## v0.1.2
+
+[compare changes](https://github.com/eralpozcan/nuxt-reviews/compare/v0.1.1...v0.1.2)
+
+### Features
+
+- **providers:** Add Booking.com Guest Review API provider (BETA) — fetch guest reviews via Connectivity Partner credentials with automatic 1-10 → 1-5 rating normalization, pagination support, and positive/negative text merging
+
+### Documentation
+
+- Add Booking.com provider guide with beta badge and configuration examples
+- Update README with Booking.com in features, config, providers table, API routes, and environment variables
+- Update homepage, introduction, and types documentation to include Booking.com
+
 ## v0.1.1
 
 [compare changes](https://github.com/eralpozcan/nuxt-reviews/compare/v0.1.0...v0.1.1)

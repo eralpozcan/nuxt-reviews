@@ -6,7 +6,7 @@ navigation: false
 ::u-page-hero
 ---
 title: nuxt-reviews
-description: Fetch and aggregate reviews from multiple platforms with a single Nuxt module. Google Places, Trustpilot, SerpAPI, Outscraper — all normalized into one unified format.
+description: Fetch and aggregate reviews from multiple platforms with a single Nuxt module. Google Places, Trustpilot, SerpAPI, Outscraper, and Booking.com — all normalized into one unified format.
 links:
   - label: Get Started
     icon: i-lucide-arrow-right
@@ -24,7 +24,7 @@ links:
   ::u-page-card
   ---
   title: Multi-Provider
-  description: Fetch reviews from Google Places, Trustpilot, SerpAPI, and Outscraper with a unified API.
+  description: Fetch reviews from Google Places, Trustpilot, SerpAPI, Outscraper, and Booking.com with a unified API.
   icon: i-lucide-layers
   ---
   ::

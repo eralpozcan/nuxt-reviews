@@ -17,7 +17,7 @@ A Nuxt module to fetch and aggregate reviews from multiple tourism & review plat
 
 ## Features
 
-- 🔌  **Multi-provider** — Google Places, Trustpilot, SerpAPI, Outscraper
+- 🔌  **Multi-provider** — Google Places, Trustpilot, SerpAPI, Outscraper, Booking.com *(beta)*
 - 🔄  **Normalized data** — All reviews mapped to a single Schema.org-based interface
 - 📊  **Aggregate ratings** — Automatic average, total, and star distribution
 - 🛡️  **Content moderation** — Toxicity filtering via Google Perspective API or OpenAI
@@ -57,6 +57,12 @@ export default defineNuxtConfig({
       outscraper: {
         apiKey: process.env.OUTSCRAPER_API_KEY,
         placeId: 'ChIJ...',
+      },
+      // Booking.com (beta) — requires Connectivity Partner credentials
+      bookingcom: {
+        username: process.env.BOOKINGCOM_USERNAME,
+        password: process.env.BOOKINGCOM_PASSWORD,
+        propertyId: '1234567890',
       },
     },
     cache: true,        // default: true
@@ -340,6 +346,7 @@ GET /api/_reviews/google       → Google Places only
 GET /api/_reviews/trustpilot   → Trustpilot only
 GET /api/_reviews/serpapi      → SerpAPI only
 GET /api/_reviews/outscraper   → Outscraper only
+GET /api/_reviews/bookingcom   → Booking.com only (beta)
 
 Query params:
   ?limit=20          → max reviews per provider
@@ -486,6 +493,7 @@ NUXT_REVIEWS_MODERATION_API_KEY=your_openai_api_key
 | **Trustpilot** | Yes | Yes | Best free option with full pagination |
 | **SerpAPI** | No (~$50/mo) | Yes | Google reviews without the 5-review limit |
 | **Outscraper** | Free tier | Yes | Pay-per-use, good for bulk |
+| **Booking.com** *(beta)* | Partner only | Yes | Requires Connectivity Partner credentials |
 
 ## Environment Variables
 
@@ -494,6 +502,8 @@ API keys are injected via runtime config and support `NUXT_` prefix override:
 ```env
 NUXT_REVIEWS_PROVIDERS_GOOGLE_API_KEY=...
 NUXT_REVIEWS_PROVIDERS_TRUSTPILOT_API_KEY=...
+NUXT_REVIEWS_PROVIDERS_BOOKINGCOM_USERNAME=...
+NUXT_REVIEWS_PROVIDERS_BOOKINGCOM_PASSWORD=...
 ```
 
 ## Contribution

@@ -4,7 +4,7 @@
 // ============================================================
 
 /** Supported review providers */
-export type ReviewProvider = 'google' | 'trustpilot' | 'serpapi' | 'outscraper'
+export type ReviewProvider = 'google' | 'trustpilot' | 'serpapi' | 'outscraper' | 'bookingcom'
 
 /** Author of a review */
 export interface ReviewAuthor {
@@ -186,12 +186,22 @@ export interface OutscraperProviderConfig {
   sort?: 'newest' | 'most_relevant' | 'highest_rating' | 'lowest_rating'
 }
 
+export interface BookingcomProviderConfig {
+  /** Booking.com Connectivity API username */
+  username: string
+  /** Booking.com Connectivity API password */
+  password: string
+  /** Booking.com property (hotel) ID */
+  propertyId: string
+}
+
 /** Map of provider names to their config */
 export interface ProvidersConfig {
   google?: GoogleProviderConfig
   trustpilot?: TrustpilotProviderConfig
   serpapi?: SerpApiProviderConfig
   outscraper?: OutscraperProviderConfig
+  bookingcom?: BookingcomProviderConfig
 }
 
 /** Module-level configuration */
