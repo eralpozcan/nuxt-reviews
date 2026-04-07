@@ -21,7 +21,7 @@ export default defineAppConfig({
     colorMode: true,
     links: [{
       'icon': 'i-simple-icons-github',
-      'to': 'https://github.com/eralp/nuxt-reviews',
+      'to': 'https://github.com/eralpozcan/nuxt-reviews',
       'target': '_blank',
       'aria-label': 'GitHub'
     }]
@@ -31,7 +31,7 @@ export default defineAppConfig({
     colorMode: false,
     links: [{
       'icon': 'i-simple-icons-github',
-      'to': 'https://github.com/eralp/nuxt-reviews',
+      'to': 'https://github.com/eralpozcan/nuxt-reviews',
       'target': '_blank',
       'aria-label': 'GitHub'
     }]
@@ -40,11 +40,11 @@ export default defineAppConfig({
     title: 'Table of Contents',
     bottom: {
       title: 'Community',
-      edit: 'https://github.com/eralp/nuxt-reviews/edit/main/playground/content',
+      edit: 'https://github.com/eralpozcan/nuxt-reviews/edit/main/playground/content',
       links: [{
         icon: 'i-lucide-star',
         label: 'Star on GitHub',
-        to: 'https://github.com/eralp/nuxt-reviews',
+        to: 'https://github.com/eralpozcan/nuxt-reviews',
         target: '_blank'
       }]
     }
