@@ -1,5 +1,5 @@
 [build]
-  command = "corepack enable && pnpm install --frozen-lockfile && pnpm run dev:prepare && cd playground && pnpm install --frozen-lockfile && cd .. && pnpm nuxt build playground"
+  command = "corepack enable && pnpm install --frozen-lockfile && cd playground && pnpm install --frozen-lockfile && cd .. && pnpm run dev:prepare && pnpm nuxt build playground"
   publish = "playground/dist"
   functions = "playground/.netlify/functions-internal"
 
