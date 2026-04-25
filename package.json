@@ -1,6 +1,6 @@
 {
   "name": "nuxt-reviews",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A Nuxt module to fetch and aggregate reviews from multiple tourism platforms (Google, Trustpilot, SerpAPI, Outscraper, Booking.com)",
   "license": "MIT",
   "author": {

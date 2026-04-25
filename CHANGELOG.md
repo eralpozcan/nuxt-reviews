@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## v0.1.3
+
+[compare changes](https://github.com/eralpozcan/nuxt-reviews/compare/v0.1.2...v0.1.3)
+
+### 🚀 Enhancements
+
+- Add component kit, mock provider, useReviewSchema, and pagination ([646e656](https://github.com/eralpozcan/nuxt-reviews/commit/646e656))
+
+### 🩹 Fixes
+
+- **docs:** Correct GitHub username in app config links ([62e5239](https://github.com/eralpozcan/nuxt-reviews/commit/62e5239))
+
+### ❤️ Contributors
+
+- Eralpozcan <eralpozcans@gmail.com>
+
 ## v0.1.2
 
 [compare changes](https://github.com/eralpozcan/nuxt-reviews/compare/v0.1.1...v0.1.2)
