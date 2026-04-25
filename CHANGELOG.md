@@ -6,11 +6,32 @@ All notable changes to this project will be documented in this file.
 
 [compare changes](https://github.com/eralpozcan/nuxt-reviews/compare/v0.1.2...v0.1.3)
 
-### 🚀 Enhancements
+### Features
 
-- Add component kit, mock provider, useReviewSchema, and pagination ([646e656](https://github.com/eralpozcan/nuxt-reviews/commit/646e656))
+- **components:** Add `<ReviewStars>`, `<ReviewCard>`, `<ReviewList>`, `<ReviewSummary>` — four zero-dependency Vue components auto-registered globally. Supports responsive grid layout, custom slots, scoped CSS, and full TypeScript props.
+- **providers:** Add `mock` provider — 12 realistic hotel reviews in 8 languages (TR, EN, FR, DE, ES, IT, RU, JA) for zero-config development and testing. No API key required.
+- **composables:** Add `useReviewSchema()` — auto-injects Schema.org JSON-LD (`AggregateRating` + up to 20 `Review` entries) into `<head>` via `useHead()` for Google rich snippets.
+- **composables:** Add `pageToken` option and expose `nextPageToken` / `totalAvailable` in `useReviews()` return for single-provider pagination.
 
-### 🩹 Fixes
+### Documentation
+
+- Add Component Kit guide page (`/guide/components`) with full props, slots, and style override reference
+- Update Providers guide with Mock provider section
+- Update Composables guide with `useReviewSchema()` docs, pagination example, and updated return value table
+- Update Types reference with `MockProviderConfig`, `ReviewSchemaItem`, and `ReviewCollection.nextPageToken`
+- Update homepage feature grid and Introduction with new features
+
+### Build
+
+- Add `eslint.config.mjs` with ESLint v9 flat config using `@nuxt/eslint-config`
+- Register components via `addComponentsDir` in `module.ts`
+
+### Tests
+
+- Update `providers.test.ts` — add `bookingcom` and `mock` to registry assertions (4 → 6 providers)
+- Fix `basic.test.ts` — replace `any` with typed `unknown` catch clause
+
+### Fixes
 
 - **docs:** Correct GitHub username in app config links ([62e5239](https://github.com/eralpozcan/nuxt-reviews/commit/62e5239))
 
