@@ -32,7 +32,7 @@ interface TrustpilotReview {
 
 interface TrustpilotResponse {
   reviews: TrustpilotReview[]
-  links: Array<{ rel: string; href: string }>
+  links: Array<{ rel: string, href: string }>
 }
 
 function normalizeTrustpilotReview(review: TrustpilotReview): NormalizedReview {

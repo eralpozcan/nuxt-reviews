@@ -81,11 +81,11 @@ interface OpenAIModerationResponse {
   results: Array<{
     flagged: boolean
     category_scores: {
-      hate: number
-      harassment: number
+      'hate': number
+      'harassment': number
       'self-harm': number
-      sexual: number
-      violence: number
+      'sexual': number
+      'violence': number
       'hate/threatening': number
       'harassment/threatening': number
     }

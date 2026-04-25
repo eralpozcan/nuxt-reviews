@@ -16,9 +16,10 @@ describe('ssr', async () => {
     try {
       await $fetch('/api/_reviews/google')
     }
-    catch (error: any) {
+    catch (error: unknown) {
       // API will fail with fake key (502) but route should exist (not 404)
-      expect(error.statusCode || error.status).not.toBe(404)
+      const e = error as Record<string, unknown>
+      expect(e.statusCode || e.status).not.toBe(404)
     }
   })
 })

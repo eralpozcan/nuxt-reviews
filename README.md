@@ -18,11 +18,14 @@ A Nuxt module to fetch and aggregate reviews from multiple tourism & review plat
 ## Features
 
 - 🔌  **Multi-provider** — Google Places, Trustpilot, SerpAPI, Outscraper, Booking.com *(beta)*
+- 🎭  **Mock provider** — Fake multilingual reviews for development (no API keys needed)
 - 🔄  **Normalized data** — All reviews mapped to a single Schema.org-based interface
 - 📊  **Aggregate ratings** — Automatic average, total, and star distribution
 - 🛡️  **Content moderation** — Toxicity filtering via Google Perspective API or OpenAI
 - ⚡  **Server-side caching** — Built-in Nitro cached handlers
-- 🧩  **Auto-imported** — `useReviews()` composable works out of the box
+- 🧩  **Auto-imported** — `useReviews()` and `useReviewSchema()` composables work out of the box
+- 🎨  **Component kit** — `<ReviewStars>`, `<ReviewCard>`, `<ReviewList>`, `<ReviewSummary>` ready to use
+- 🔍  **Schema.org JSON-LD** — Auto-inject structured data for Google rich snippets
 - 🎯  **Type-safe** — Full TypeScript support with provider-specific configs
 
 ## Quick Setup
@@ -329,6 +332,11 @@ const { reviews: filtered } = useReviews({
   sort: 'createdat.desc',
 })
 
+// Pagination (single-provider only)
+const { reviews, nextPageToken, totalAvailable } = useReviews({ provider: 'serpapi', limit: 10 })
+// Pass nextPageToken.value to fetch the next page:
+// useReviews({ provider: 'serpapi', limit: 10, pageToken: nextPageToken.value })
+
 // Lazy load (don't fetch immediately)
 const { reviews: lazy, refresh: loadReviews } = useReviews({
   provider: 'all',
@@ -485,10 +493,105 @@ NUXT_REVIEWS_MODERATION_API_KEY=your_openai_api_key
 3. Create an API key
 4. No billing required for moderate usage
 
+## Mock Provider
+
+For development and testing without API keys, use the built-in mock provider:
+
+```ts
+// nuxt.config.ts
+reviews: {
+  providers: {
+    mock: {},  // no configuration needed
+  },
+}
+```
+
+Returns 12 realistic hotel reviews in **7 languages** (TR, EN, FR, DE, ES, IT, RU, JA) with ratings, author info, business responses, and verified flags. Supports all standard filters (`language`, `limit`, `sort`, `minRating`).
+
+```vue
+<script setup>
+const { reviews, aggregate } = useReviews({ provider: 'mock' })
+// or with filters
+const { reviews: trOnly } = useReviews({ provider: 'mock', language: 'tr' })
+</script>
+```
+
+## Component Kit
+
+Four zero-dependency components are auto-registered and ready to use:
+
+### `<ReviewStars>`
+
+```vue
+<ReviewStars :rating="4.5" size="md" />
+<!-- size: 'sm' | 'md' | 'lg' -->
+```
+
+### `<ReviewCard>`
+
+```vue
+<ReviewCard :review="review" :show-provider="true" :show-response="true" :truncate="200" />
+```
+
+### `<ReviewList>`
+
+```vue
+<ReviewList :reviews="reviews" :loading="pending" :columns="2" show-provider>
+  <!-- Optional custom card slot -->
+  <template #review="{ review }">
+    <MyCustomCard :review="review" />
+  </template>
+</ReviewList>
+```
+
+### `<ReviewSummary>`
+
+```vue
+<ReviewSummary :aggregate="aggregate" title="Customer Reviews" :show-distribution="true" />
+```
+
+### Full example
+
+```vue
+<script setup>
+const { reviews, aggregate, pending } = useReviews()
+useReviewSchema(reviews, aggregate, {
+  name: 'Grand Hotel Istanbul',
+  url: 'https://example.com',
+})
+</script>
+
+<template>
+  <ReviewSummary :aggregate="aggregate" title="Guest Reviews" />
+  <ReviewList :reviews="reviews" :loading="pending" :columns="2" show-provider />
+</template>
+```
+
+## Schema.org JSON-LD
+
+`useReviewSchema` injects structured data automatically for Google rich snippets (star ratings in search results):
+
+```vue
+<script setup>
+const { reviews, aggregate } = useReviews()
+
+useReviewSchema(reviews, aggregate, {
+  name: 'Grand Hotel Istanbul',
+  description: 'Luxury hotel in the heart of Istanbul',
+  url: 'https://example.com/hotel',
+  image: 'https://example.com/hotel.jpg',
+  type: 'Hotel',  // defaults to 'LocalBusiness'
+})
+</script>
+```
+
+Generates a `<script type="application/ld+json">` block with `AggregateRating` and up to 20 individual `Review` entries — the minimum Google needs to show stars in search results.
+
 ## Providers
 
 | Provider | Free | Pagination | Notes |
 |---|---|---|---|
+| **Mock** | Yes | No | 12 multilingual reviews, no API key needed |
 | **Google Places** | $200/mo credit | No (5 max) | Official API, limited reviews |
 | **Trustpilot** | Yes | Yes | Best free option with full pagination |
 | **SerpAPI** | No (~$50/mo) | Yes | Google reviews without the 5-review limit |

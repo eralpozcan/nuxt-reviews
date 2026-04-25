@@ -27,7 +27,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const allReviews: NormalizedReview[] = []
-  const errors: Array<{ provider: string; error: string }> = []
+  const errors: Array<{ provider: string, error: string }> = []
 
   // Fetch from all configured providers in parallel
   const results = await Promise.allSettled(

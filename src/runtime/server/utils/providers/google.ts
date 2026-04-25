@@ -16,8 +16,8 @@ interface GoogleReviewAuthor {
 interface GoogleReview {
   name: string
   rating: number
-  text?: { text: string; languageCode: string }
-  originalText?: { text: string; languageCode: string }
+  text?: { text: string, languageCode: string }
+  originalText?: { text: string, languageCode: string }
   authorAttribution: GoogleReviewAuthor
   publishTime: string
   relativePublishTimeDescription: string

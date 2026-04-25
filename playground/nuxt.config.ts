@@ -106,6 +106,7 @@ export default defineNuxtConfig({
     cacheTTL: 3600,
     maxReviews: 50,
     providers: {
+      mock: {},
       google: {
         apiKey: process.env.GOOGLE_API_KEY || '',
         placeId: process.env.GOOGLE_PLACE_ID || ''

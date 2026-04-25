@@ -4,6 +4,7 @@ import { trustpilotProvider } from './trustpilot'
 import { serpapiProvider } from './serpapi'
 import { outscraperProvider } from './outscraper'
 import { bookingcomProvider } from './bookingcom'
+import { mockProvider } from './mock'
 
 const providerRegistry: Record<ReviewProvider, ReviewProviderAdapter> = {
   google: googleProvider,
@@ -11,6 +12,7 @@ const providerRegistry: Record<ReviewProvider, ReviewProviderAdapter> = {
   serpapi: serpapiProvider,
   outscraper: outscraperProvider,
   bookingcom: bookingcomProvider,
+  mock: mockProvider,
 }
 
 export function getProvider(name: string): ReviewProviderAdapter {

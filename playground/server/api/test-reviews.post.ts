@@ -25,9 +25,9 @@ export default defineEventHandler(async (event) => {
       {
         headers: {
           'X-Goog-Api-Key': body.apiKey,
-          'X-Goog-FieldMask': 'reviews,rating,userRatingCount',
-        },
-      },
+          'X-Goog-FieldMask': 'reviews,rating,userRatingCount'
+        }
+      }
     )
 
     return response
@@ -42,8 +42,8 @@ export default defineEventHandler(async (event) => {
       `https://api.trustpilot.com/v1/business-units/${body.businessUnitId}/reviews`,
       {
         headers: { apikey: body.apiKey },
-        query: { perPage: 20 },
-      },
+        query: { perPage: 20 }
+      }
     )
 
     return response

@@ -21,6 +21,17 @@
           />
         </div>
 
+        <!-- Mock Info -->
+        <UAlert
+          v-if="selectedProvider === 'mock'"
+          color="success"
+          variant="subtle"
+          title="Mock provider — no API key required"
+          description="Returns 12 realistic hotel reviews in 8 languages (TR, EN, FR, DE, ES, IT, RU, JA). Click Fetch Reviews to see the new components in action."
+          icon="i-lucide-flask-conical"
+          class="mb-6"
+        />
+
         <!-- Google Config -->
         <UCard
           v-if="selectedProvider === 'google'"
@@ -97,8 +108,61 @@
           class="mb-6"
         />
 
+        <!-- Mock Results — showcase new components -->
+        <template v-if="result && selectedProvider === 'mock'">
+          <h2 class="text-lg font-semibold mb-4">
+            Component Kit Preview
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <ReviewSummary
+              :aggregate="result.aggregate"
+              title="Guest Reviews"
+              :show-distribution="true"
+            />
+            <div class="space-y-3">
+              <p class="text-sm font-semibold text-muted">
+                ReviewStars sizes:
+              </p>
+              <div class="flex flex-col gap-2">
+                <div class="flex items-center gap-3">
+                  <ReviewStars
+                    :rating="4.5"
+                    size="sm"
+                  />
+                  <span class="text-xs text-muted">sm — 4.5</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <ReviewStars
+                    :rating="4.5"
+                    size="md"
+                  />
+                  <span class="text-xs text-muted">md — 4.5</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <ReviewStars
+                    :rating="4.5"
+                    size="lg"
+                  />
+                  <span class="text-xs text-muted">lg — 4.5</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h2 class="text-lg font-semibold mb-4">
+            ReviewList (columns=2, show-provider)
+          </h2>
+          <ReviewList
+            :reviews="result.reviews"
+            :columns="2"
+            show-provider
+            :show-response="true"
+            :truncate="180"
+            class="mb-8"
+          />
+        </template>
+
         <!-- Results -->
-        <template v-if="result">
+        <template v-if="result && selectedProvider !== 'mock'">
           <div class="grid grid-cols-2 gap-4 mb-6">
             <UCard>
               <div class="text-4xl font-bold">
@@ -230,11 +294,12 @@
 
 <script setup lang="ts">
 const providers = [
+  { id: 'mock' as const, label: 'Mock (no API key)' },
   { id: 'google' as const, label: 'Google Places' },
   { id: 'trustpilot' as const, label: 'Trustpilot' }
 ]
 
-const selectedProvider = ref<'google' | 'trustpilot'>('google')
+const selectedProvider = ref<'mock' | 'google' | 'trustpilot'>('mock')
 
 const googleConfig = reactive({ apiKey: '', placeId: '' })
 const trustpilotConfig = reactive({ apiKey: '', businessUnitId: '' })
@@ -245,6 +310,7 @@ const errorMessage = ref('')
 const result = ref<Record<string, any> | null>(null)
 
 const isConfigValid = computed(() => {
+  if (selectedProvider.value === 'mock') return true
   if (selectedProvider.value === 'google') {
     return googleConfig.apiKey.length > 0 && googleConfig.placeId.length > 0
   }
@@ -263,6 +329,11 @@ async function fetchReviews() {
   result.value = null
 
   try {
+    if (selectedProvider.value === 'mock') {
+      result.value = await $fetch('/api/_reviews/mock')
+      return
+    }
+
     const body = selectedProvider.value === 'google'
       ? { provider: 'google', apiKey: googleConfig.apiKey, placeId: googleConfig.placeId }
       : { provider: 'trustpilot', apiKey: trustpilotConfig.apiKey, businessUnitId: trustpilotConfig.businessUnitId }
@@ -288,7 +359,6 @@ async function fetchReviews() {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function normalizeRawResponse(raw: Record<string, unknown>, provider: string) {
   const dist = () => ({ 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 } as Record<number, number>)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

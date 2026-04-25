@@ -9,7 +9,9 @@ describe('provider registry', () => {
     expect(providers).toContain('trustpilot')
     expect(providers).toContain('serpapi')
     expect(providers).toContain('outscraper')
-    expect(providers).toHaveLength(4)
+    expect(providers).toContain('bookingcom')
+    expect(providers).toContain('mock')
+    expect(providers).toHaveLength(6)
   })
 
   it('returns google provider', () => {
@@ -42,6 +44,20 @@ describe('provider registry', () => {
 
   it('throws for unknown provider', () => {
     expect(() => getProvider('unknown')).toThrow('[nuxt-reviews] Unknown provider: "unknown"')
+  })
+
+  it('returns bookingcom provider', () => {
+    const provider = getProvider('bookingcom')
+
+    expect(provider.name).toBe('bookingcom')
+    expect(typeof provider.fetchReviews).toBe('function')
+  })
+
+  it('returns mock provider', () => {
+    const provider = getProvider('mock')
+
+    expect(provider.name).toBe('mock')
+    expect(typeof provider.fetchReviews).toBe('function')
   })
 
   it('error message lists available providers', () => {

@@ -4,7 +4,7 @@
 // ============================================================
 
 /** Supported review providers */
-export type ReviewProvider = 'google' | 'trustpilot' | 'serpapi' | 'outscraper' | 'bookingcom'
+export type ReviewProvider = 'google' | 'trustpilot' | 'serpapi' | 'outscraper' | 'bookingcom' | 'mock'
 
 /** Author of a review */
 export interface ReviewAuthor {
@@ -63,13 +63,13 @@ export interface NormalizedReview {
 export type ModerationProvider = 'perspective' | 'openai'
 
 /** Perspective API attribute types */
-export type PerspectiveAttribute =
-  | 'TOXICITY'
-  | 'SEVERE_TOXICITY'
-  | 'INSULT'
-  | 'PROFANITY'
-  | 'THREAT'
-  | 'IDENTITY_ATTACK'
+export type PerspectiveAttribute
+  = | 'TOXICITY'
+    | 'SEVERE_TOXICITY'
+    | 'INSULT'
+    | 'PROFANITY'
+    | 'THREAT'
+    | 'IDENTITY_ATTACK'
 
 /** Moderation score breakdown per attribute */
 export interface ModerationScores {
@@ -146,6 +146,10 @@ export interface ReviewCollection {
   }>
   /** When the data was last fetched (ISO 8601) */
   fetchedAt: string
+  /** Total reviews available on the platform (single-provider mode only) */
+  totalAvailable?: number
+  /** Token for fetching the next page (single-provider mode only) */
+  nextPageToken?: string
 }
 
 // ============================================================
@@ -195,6 +199,11 @@ export interface BookingcomProviderConfig {
   propertyId: string
 }
 
+export interface MockProviderConfig {
+  /** Optional seed for deterministic data generation (reserved for future use) */
+  seed?: number
+}
+
 /** Map of provider names to their config */
 export interface ProvidersConfig {
   google?: GoogleProviderConfig
@@ -202,6 +211,7 @@ export interface ProvidersConfig {
   serpapi?: SerpApiProviderConfig
   outscraper?: OutscraperProviderConfig
   bookingcom?: BookingcomProviderConfig
+  mock?: MockProviderConfig
 }
 
 /** Module-level configuration */

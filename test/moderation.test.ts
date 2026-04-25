@@ -1,12 +1,12 @@
 import { describe, it, expect, vi } from 'vitest'
 
-vi.mock('ofetch', () => ({
-  $fetch: vi.fn(),
-}))
-
 import { $fetch } from 'ofetch'
 import { moderateReviews } from '../src/runtime/server/utils/moderation'
 import type { NormalizedReview, ModerationConfig } from '../src/runtime/types'
+
+vi.mock('ofetch', () => ({
+  $fetch: vi.fn(),
+}))
 
 const mockedFetch = vi.mocked($fetch)
 

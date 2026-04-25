@@ -1,11 +1,11 @@
 import { describe, it, expect, vi } from 'vitest'
 
+import { $fetch } from 'ofetch'
+import { getProvider } from '../src/runtime/server/utils/providers'
+
 vi.mock('ofetch', () => ({
   $fetch: vi.fn(),
 }))
-
-import { $fetch } from 'ofetch'
-import { getProvider } from '../src/runtime/server/utils/providers'
 
 const mockedFetch = vi.mocked($fetch)
 

@@ -4,6 +4,7 @@ import {
   addServerHandler,
   addImportsDir,
   addTypeTemplate,
+  addComponentsDir,
 } from '@nuxt/kit'
 import { defu } from 'defu'
 import type { ModuleOptions } from './runtime/types'
@@ -65,6 +66,12 @@ export default defineNuxtModule<ModuleOptions>({
 
     // Auto-import composables
     addImportsDir(resolve('./runtime/composables'))
+
+    // Register components (ReviewStars, ReviewCard, ReviewList, ReviewSummary)
+    addComponentsDir({
+      path: resolve('./runtime/components'),
+      global: true,
+    })
 
     // Type augmentation for nuxt.config
     addTypeTemplate({

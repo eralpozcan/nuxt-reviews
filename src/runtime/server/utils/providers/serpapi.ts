@@ -104,6 +104,7 @@ export const serpapiProvider: ReviewProviderAdapter = {
       nextPageToken = response.serpapi_pagination?.next_page_token
 
       if (!nextPageToken || allReviews.length >= limit) break
+    // eslint-disable-next-line no-constant-condition
     } while (true)
 
     return {

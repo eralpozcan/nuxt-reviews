@@ -38,7 +38,7 @@ interface BookingcomReview {
   last_change_timestamp?: string
   content: BookingcomContent
   scoring: BookingcomScoring
-  reviewer: { name?: string; country?: string } | null
+  reviewer: { name?: string, country?: string } | null
   response?: BookingcomResponse | null
   reservation_id?: number
 }

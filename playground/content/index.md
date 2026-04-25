@@ -30,9 +30,23 @@ links:
   ::
   ::u-page-card
   ---
-  title: Auto Composable
-  description: Use the useReviews() composable for reactive, type-safe review data in your components.
-  icon: i-lucide-code
+  title: Mock Provider
+  description: 12 multilingual fake reviews (TR/EN/FR/DE/ES/IT/RU/JA) for instant development — no API keys needed.
+  icon: i-lucide-flask-conical
+  ---
+  ::
+  ::u-page-card
+  ---
+  title: Component Kit
+  description: Drop-in ReviewStars, ReviewCard, ReviewList, and ReviewSummary components — auto-registered, zero config.
+  icon: i-lucide-layout-panel-left
+  ---
+  ::
+  ::u-page-card
+  ---
+  title: Schema.org JSON-LD
+  description: useReviewSchema() injects structured data automatically for Google rich snippets and star ratings in search.
+  icon: i-lucide-search
   ---
   ::
   ::u-page-card
@@ -47,6 +61,13 @@ links:
   title: Smart Caching
   description: Server-side caching with configurable TTL to minimize API calls and costs.
   icon: i-lucide-database
+  ---
+  ::
+  ::u-page-card
+  ---
+  title: Pagination
+  description: nextPageToken and totalAvailable exposed in useReviews() for single-provider page-by-page fetching.
+  icon: i-lucide-chevrons-right
   ---
   ::
   ::u-page-card
