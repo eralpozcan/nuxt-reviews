@@ -1,0 +1,145 @@
+# nuxt-reviews
+
+> Nuxt 4 module that fetches and aggregates reviews from Google Places, Trustpilot, SerpAPI, Outscraper, and Booking.com (beta) into a single normalized shape, with auto-injected Schema.org JSON-LD and a built-in component kit.
+
+- npm: https://www.npmjs.com/package/nuxt-reviews
+- Repo: https://github.com/eralpozcan/nuxt-reviews
+- Docs (full, consumer-facing): ./playground/content/ — auto-built at https://nuxt-reviews.netlify.app
+- Install: `npx nuxi module add nuxt-reviews`
+- Changelog: ./CHANGELOG.md
+- Version: 0.1.4
+
+## If you are integrating this into a Nuxt app
+
+1. Install: `npx nuxi module add nuxt-reviews` (adds to `nuxt.config.ts` and installs the dep).
+2. Configure providers under `runtimeConfig.reviews.providers` in `nuxt.config.ts`. Every provider's credentials stay server-side — never reference them in client code or `app.config`.
+3. In any component, import the auto-imported composables:
+   - `useReviews(options?)` — fetch reviews (aggregated or per-provider)
+   - `useReviewSchema(reviews, aggregate, item)` — inject JSON-LD for Google rich snippets
+4. Components `<ReviewStars>`, `<ReviewCard>`, `<ReviewList>`, `<ReviewSummary>` are auto-registered.
+5. Server routes `GET /api/_reviews` (aggregate) and `GET /api/_reviews/:provider` (single) are unauthenticated by design — add your own Nitro middleware if you need to gate them.
+
+## Providers
+
+| Provider    | Required config                                | Auth        | Notes                         |
+| ----------- | ---------------------------------------------- | ----------- | ----------------------------- |
+| `google`    | `apiKey`, `placeId`                            | API key     | Google Places API             |
+| `trustpilot`| `apiKey`, `businessUnitId`                     | API key     | Trustpilot Business API       |
+| `serpapi`   | `apiKey`, `placeId`                            | API key     | Google reviews via SerpAPI    |
+| `outscraper`| `apiKey`, `placeId`                            | API key     | Google reviews via Outscraper |
+| `bookingcom`| `username`, `password`, `propertyId`           | Basic Auth  | Connectivity Partner API, BETA — only `https://supply-xml.booking.com/` URLs are followed for pagination |
+| `mock`      | none                                           | none        | 12 fake reviews, 8 languages, for dev/test |
+
+## Public composables
+
+### `useReviews(options?)`
+
+- `options.provider?: 'all' | 'google' | 'trustpilot' | 'serpapi' | 'outscraper' | 'bookingcom' | 'mock'` — default `'all'` (aggregated)
+- `options.limit?: number` — max reviews to return
+- `options.language?: string` — ISO language filter
+- `options.sort?: string` — provider-specific
+- `options.minRating?: number` — 1-5 floor
+- `options.pageToken?: string` — pagination cursor for single-provider mode
+- Returns `{ data, pending, error, refresh, aggregate, sources, fetchedAt, nextPageToken, totalAvailable }`
+- `aggregate` is `{ average: number, total: number, distribution: Record<'1'|'2'|'3'|'4'|'5', number> }`
+
+### `useReviewSchema(reviewsRef, aggregateRef, item)`
+
+- Reviews and aggregate must be `Ref<...>` or `ComputedRef<...>`
+- `item: { name: string, description?, url?, image?, type? }` — `type` defaults to `'LocalBusiness'`
+- Emits a `<script type="application/ld+json">` block via `useHead` with up to 20 review entries
+- Untrusted review text is automatically escaped (`<`, `>`, `&`) to prevent stored XSS
+
+## Review shape (Schema.org-aligned)
+
+```ts
+{
+  id: string                    // prefixed with provider name, e.g. "trustpilot_abc123"
+  provider: string              // one of the keys above
+  rating: number                // normalized to 1-5, half-steps allowed
+  text: string
+  title?: string
+  author: { name: string, avatar?: string|null, url?: string|null }
+  publishedAt: string           // ISO 8601
+  language?: string             // ISO 639-1 (e.g. "en", "tr")
+  isVerified?: boolean
+  businessResponse?: { text: string, publishedAt: string }
+  raw?: object                  // full upstream payload — use only for debugging
+}
+```
+
+## Full configuration
+
+```ts
+// nuxt.config.ts
+export default defineNuxtConfig({
+  modules: ['nuxt-reviews'],
+  runtimeConfig: {
+    reviews: {
+      providers: {
+        google:     { apiKey: process.env.GOOGLE_API_KEY!,    placeId: 'ChIJ...' },
+        trustpilot: { apiKey: process.env.TRUSTPILOT_API_KEY!, businessUnitId: '...' },
+        serpapi:    { apiKey: process.env.SERPAPI_API_KEY!,    placeId: 'ChIJ...' },
+        outscraper: { apiKey: process.env.OUTSCRAPER_API_KEY!, placeId: 'ChIJ...' },
+        bookingcom: { username: process.env.BOOKINGCOM_USERNAME!, password: process.env.BOOKINGCOM_PASSWORD!, propertyId: '1234567890' },
+      },
+      maxReviews: 50,         // default 50
+      minRating: undefined,   // global floor
+      cache: true,            // default true
+      cacheTTL: 3600,         // default 1h, seconds
+      moderation: {
+        enabled: false,
+        provider: 'perspective',  // or 'openai'
+        apiKey: '...',
+        toxicityThreshold: 0.7,   // 0-1
+        action: 'filter',         // or 'flag'
+      },
+    },
+  },
+})
+```
+
+## Component kit
+
+Auto-imported, zero dependencies, scoped CSS, full TS props.
+
+- `<ReviewStars :rating="4.5" :max="5" />` — display only
+- `<ReviewCard :review="r" />` — single review block
+- `<ReviewList :reviews="reviews" :aggregate="agg" />` — list with header
+- `<ReviewSummary :aggregate="agg" :sources="sources" />` — average + distribution
+
+## Layout (contributor reference)
+
+```
+src/
+  module.ts                              # @nuxt/kit entry
+  runtime/
+    server/api/reviews/                  # injected Nitro routes
+    server/utils/providers/              # one adapter per provider
+    server/utils/aggregate.ts            # buildCollection, computeAverage
+    server/utils/moderation.ts           # Perspective / OpenAI
+    composables/                         # useReviews, useReviewSchema
+    components/                          # ReviewStars / Card / List / Summary
+    types/index.ts                       # public types
+test/                                    # vitest + @nuxt/test-utils
+playground/                              # demo app (separate package.json)
+```
+
+## Build & test (contributor reference)
+
+- `pnpm install` — root deps
+- `pnpm install` in `playground/` — playground deps
+- `pnpm dev:prepare` — build stubs + types
+- `pnpm dev` — start playground
+- `pnpm test` — vitest (36 passing, 1 skipped — see test/basic.test.ts)
+- `pnpm lint` — eslint
+- `pnpm release` — full release (lint + test + build + changelogen + npm publish + git push)
+
+## Common tasks
+
+- "Add Google reviews" → set `runtimeConfig.reviews.providers.google.{apiKey, placeId}`. See `src/runtime/server/utils/providers/google.ts`.
+- "Add another language filter" → `useReviews({ language: 'tr' })` — passed through to providers that support it.
+- "Show stars only" → `<ReviewStars :rating="aggregate.average" />`.
+- "Add JSON-LD for SEO" → call `useReviewSchema(reviews, aggregate, { name, url, image, description })` in your page setup.
+- "Switch to dev data" → set `providers.mock: {}` and remove other providers.
+- "Tune how many reviews" → `maxReviews` in config, or `limit` option per call.
