@@ -25,7 +25,6 @@ All notable changes to this project will be documented in this file.
 ### ❤️ Contributors
 
 - Eralp Özcan <eralpozcans@gmail.com>
-- Eralpozcan <eralpozcans@gmail.com>
 
 ## v0.1.3
 
