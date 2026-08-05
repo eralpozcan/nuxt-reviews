@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
+## v0.1.4
+
+[compare changes](https://github.com/eralpozcan/nuxt-reviews/compare/v0.1.3...v0.1.4)
+
+### 🩹 Fixes
+
+- **security:** Escape </script> in useReviewSchema JSON-LD output ([887f9d0](https://github.com/eralpozcan/nuxt-reviews/commit/887f9d0))
+- **security:** Stop echoing upstream error messages in 502 responses ([2f194af](https://github.com/eralpozcan/nuxt-reviews/commit/2f194af))
+- **security:** Validate booking.com next_page URL against host allowlist ([be69129](https://github.com/eralpozcan/nuxt-reviews/commit/be69129))
+- **deps:** Update ofetch, defu, and @nuxt/test-utils ([b0bd077](https://github.com/eralpozcan/nuxt-reviews/commit/b0bd077))
+- **deps:** Update @nuxtjs/mcp-toolkit in playground ([8afd974](https://github.com/eralpozcan/nuxt-reviews/commit/8afd974))
+
+### 📖 Documentation
+
+- Expand v0.1.3 changelog with full feature details ([5f9dd02](https://github.com/eralpozcan/nuxt-reviews/commit/5f9dd02))
+
+### ✅ Tests
+
+- Skip flaky 'renders the index page' SSR test (pre-existing) ([c7e307a](https://github.com/eralpozcan/nuxt-reviews/commit/c7e307a))
+
+### ❤️ Contributors
+
+- Eralp Özcan <eralpozcans@gmail.com>
+- Eralpozcan <eralpozcans@gmail.com>
+
 ## v0.1.3
 
 [compare changes](https://github.com/eralpozcan/nuxt-reviews/compare/v0.1.2...v0.1.3)
