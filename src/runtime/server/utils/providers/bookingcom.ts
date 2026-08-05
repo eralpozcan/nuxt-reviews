@@ -122,6 +122,11 @@ export const bookingcomProvider: ReviewProviderAdapter = {
     }
 
     while (url && allReviews.length < limit) {
+      // SSRF guard: only follow next_page URLs on the booking.com host
+      if (!url.startsWith(BASE_URL)) {
+        throw new Error('[nuxt-reviews] Refusing to follow next_page URL outside the booking.com allowlist')
+      }
+
       const response = await $fetch<BookingcomReviewsResponse>(url, {
         headers: {
           Authorization: authHeader,
