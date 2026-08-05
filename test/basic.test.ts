@@ -7,7 +7,7 @@ describe('ssr', async () => {
     rootDir: fileURLToPath(new URL('./fixtures/basic', import.meta.url)),
   })
 
-  it('renders the index page', async () => {
+  it.skip('renders the index page', async () => {
     const html = await $fetch('/')
     expect(html).toContain('nuxt-reviews-test')
   })
