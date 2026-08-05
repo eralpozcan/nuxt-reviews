@@ -66,11 +66,15 @@ export function useReviewSchema(
   })
 
   useHead({
-    script: computed(() =>
-      schema.value
-        ? [{ type: 'application/ld+json', innerHTML: JSON.stringify(schema.value) }]
-        : [],
-    ),
+    script: computed(() => {
+      if (!schema.value) return []
+      // Escape characters that could close the script tag and execute as HTML
+      const safeJson = JSON.stringify(schema.value)
+        .replace(/</g, '\\u003C')
+        .replace(/>/g, '\\u003E')
+        .replace(/&/g, '\\u0026')
+      return [{ type: 'application/ld+json', innerHTML: safeJson }]
+    }),
   })
 
   return { schema }
