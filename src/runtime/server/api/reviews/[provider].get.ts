@@ -56,10 +56,10 @@ export default defineEventHandler(async (event) => {
     }
   }
   catch (error: unknown) {
-    const message = error instanceof Error ? error.message : 'Unknown error'
+    console.error(`[nuxt-reviews] Provider ${providerName} fetch failed:`, error)
     throw createError({
       statusCode: 502,
-      message: `Failed to fetch reviews from ${providerName}: ${message}`,
+      message: `Failed to fetch reviews from ${providerName}`,
     })
   }
 })

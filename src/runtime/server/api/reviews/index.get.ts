@@ -49,9 +49,10 @@ export default defineEventHandler(async (event) => {
       allReviews.push(...result.value.reviews)
     }
     else {
+      console.error(`[nuxt-reviews] Provider ${configuredProviders[i]} fetch failed:`, result.reason)
       errors.push({
         provider: configuredProviders[i],
-        error: result.reason?.message || 'Unknown error',
+        error: 'Provider fetch failed',
       })
     }
   }
