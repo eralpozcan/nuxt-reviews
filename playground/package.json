@@ -27,6 +27,7 @@
     "nuxt": "^4.4.2",
     "nuxt-llms": "0.2.0",
     "nuxt-og-image": "^6.7.8",
+    "nuxt-security": "^2.6.0",
     "satori": "^0.33.4",
     "tailwindcss": "^4.2.2",
     "ufo": "^1.6.3",

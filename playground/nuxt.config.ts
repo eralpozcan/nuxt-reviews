@@ -10,8 +10,28 @@ export default defineNuxtConfig({
     'nuxt-llms',
     '@nuxtjs/mcp-toolkit',
     '@nuxtjs/sitemap',
-    '@nuxtjs/robots'
+    '@nuxtjs/robots',
+    'nuxt-security'
   ],
+
+  security: {
+    headers: {
+      contentSecurityPolicy: {
+        'default-src': ["'self'"],
+        // ponytail: inline needed for Nuxt hydration payload; move to nonce-based CSP if strict mode wanted
+        'script-src': ["'self'", "'unsafe-inline'"],
+        'style-src': ["'self'", "'unsafe-inline'"],
+        'img-src': ["'self'", 'data:', 'https:'],
+        'font-src': ["'self'", 'data:'],
+        'connect-src': ["'self'", 'https://api.iconify.design'],
+        'frame-ancestors': ["'none'"],
+        'object-src': ["'none'"],
+        'base-uri': ["'self'"]
+      },
+      xFrameOptions: 'DENY',
+      referrerPolicy: 'strict-origin-when-cross-origin'
+    }
+  },
 
   site: {
     url: 'https://nuxt-reviews.netlify.app'
