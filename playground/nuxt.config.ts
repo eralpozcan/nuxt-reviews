@@ -18,8 +18,7 @@ export default defineNuxtConfig({
     headers: {
       contentSecurityPolicy: {
         'default-src': ["'self'"],
-        // ponytail: inline needed for Nuxt hydration payload; move to nonce-based CSP if strict mode wanted
-        'script-src': ["'self'", "'unsafe-inline'"],
+        'script-src': ["'self'", "'unsafe-inline'", "'wasm-unsafe-eval'"],
         'style-src': ["'self'", "'unsafe-inline'"],
         'img-src': ["'self'", 'data:', 'https:'],
         'font-src': ["'self'", 'data:'],
