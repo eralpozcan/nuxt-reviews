@@ -8,14 +8,35 @@ export default defineNuxtConfig({
     '@nuxt/content',
     'nuxt-og-image',
     'nuxt-llms',
-    '@nuxtjs/mcp-toolkit'
+    '@nuxtjs/mcp-toolkit',
+    '@nuxtjs/sitemap',
+    '@nuxtjs/robots'
   ],
+
+  site: {
+    url: 'https://nuxt-reviews.netlify.app'
+  },
 
   devtools: {
     enabled: true
   },
 
   css: ['~/assets/css/main.css'],
+
+  sitemap: {
+    urls: [
+      '/getting-started',
+      '/getting-started/installation',
+      '/getting-started/usage',
+      '/guide/providers',
+      '/guide/composables',
+      '/guide/moderation',
+      '/guide/components',
+      '/api/types'
+    ]
+  },
+
+  robots: {},
 
   content: {
     build: {
@@ -65,7 +86,7 @@ export default defineNuxtConfig({
   },
 
   llms: {
-    domain: 'https://nuxt-reviews.dev/',
+    domain: 'https://nuxt-reviews.netlify.app',
     title: 'nuxt-reviews',
     description: 'Nuxt module for fetching and aggregating reviews from multiple platforms.',
     full: {

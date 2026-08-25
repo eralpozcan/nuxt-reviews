@@ -6,6 +6,30 @@ useSeoMeta({
   description: 'Fetch and aggregate reviews from multiple platforms with a single Nuxt module.',
   ogDescription: 'Fetch and aggregate reviews from multiple platforms with a single Nuxt module.'
 })
+
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        'name': 'nuxt-reviews',
+        'description': 'Nuxt module for fetching and aggregating reviews from multiple platforms. Google Places, Trustpilot, SerpAPI, Outscraper — all normalized into one unified format.',
+        'url': 'https://nuxt-reviews.netlify.app',
+        'applicationCategory': 'DeveloperApplication',
+        'operatingSystem': 'Nuxt',
+        'offers': {
+          '@type': 'Offer',
+          'price': '0',
+          'priceCurrency': 'USD'
+        },
+        'softwareVersion': 'latest',
+        'screenshot': 'https://nuxt-reviews.netlify.app/logo.png'
+      })
+    }
+  ]
+})
 </script>
 
 <template>

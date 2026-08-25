@@ -1,5 +1,8 @@
 <script setup lang="ts">
 const { seo } = useAppConfig()
+const route = useRoute()
+
+const canonicalUrl = computed(() => `https://nuxt-reviews.netlify.app${route.path}`)
 
 const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('docs'))
 const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSections('docs'), {
@@ -11,7 +14,8 @@ useHead({
     { name: 'viewport', content: 'width=device-width, initial-scale=1' }
   ],
   link: [
-    { rel: 'icon', href: '/favicon.ico' }
+    { rel: 'icon', href: '/favicon.ico' },
+    { rel: 'canonical', href: canonicalUrl }
   ],
   htmlAttrs: {
     lang: 'en'
